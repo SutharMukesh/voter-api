@@ -19,7 +19,8 @@ const voter = new mongoose.Schema({
     required: true
   },
   photo: {
-    type: String
+    data: Buffer,
+    contentType: String,
   },
   address: {
     type: String,
@@ -28,8 +29,7 @@ const voter = new mongoose.Schema({
   mobile: {
     type: Number,
     required: true
-  },
-  dateadded: String
-});
+  }
+},{timestamps: true});
 
 module.exports = mongoose.model("voter", voter);
