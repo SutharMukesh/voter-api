@@ -29,8 +29,21 @@ voterroute.get("/:id", async (req, res) => {
   }
 });
 
+
+// Get All voter details for homepage
+voterroute.post("/getfilteredvoter", async (req, res) => {
+  try {
+    logger.info(`Voter/: Get filtered voter ${req.body}`);
+    let voters = await Voter.find(req.body);
+    res.status(200).send(voters);
+  } catch (error) {
+    logger.error(`Voter/: Error while finding voters with filter: ${req.body}:  ${error.stack ? error.stack : error}`);
+    res.status(400).send({ message: `Error while finding voters: ${error}` });
+  }
+});
+
 // Add new Voter
-voterroute.post("/addimage", upload.single("file"), async (req, res) => {
+voterroute.post("/addvoter", upload.single("file"), async (req, res) => {
   try {
     logger.info(`Voter/add: Adding Voter ${JSON.stringify(req.body)}`);
     let voter = new Voter();
