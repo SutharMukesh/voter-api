@@ -48,7 +48,7 @@ voterroute.post("/addvoter", upload.single("file"), async (req, res) => {
     logger.info(`Voter/add: Adding Voter ${JSON.stringify(req.body)}`);
     let voter = new Voter();
     voter.photo.data = fs.readFileSync(req.file.path);
-    voter.photo.contentType = "image/png";
+    voter.photo.contentType = req.file.mimetype;
     voter = Object.assign(voter, req.body);
     result = await voter.save();
     res.status(200).send({ message: "Added Voter successfully" });
